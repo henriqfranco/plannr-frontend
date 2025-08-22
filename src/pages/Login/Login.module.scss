@@ -43,11 +43,9 @@
 .helpLine {
   display: flex;
   justify-content: space-between;
-}
-
-.rememberMe {
-  display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .noAccount {

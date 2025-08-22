@@ -1,4 +1,4 @@
-import { TextField, Button, Switch } from '@mui/material';
+import { TextField, Button, Switch, FormControlLabel } from '@mui/material';
 
 import logo from '../../assets/LogoPlannr.png'
 import bgVideo from '../../assets/bgvideo.mp4'
@@ -18,10 +18,8 @@ function Login() {
                 <TextField label='Email' variant='outlined' type='email' required />
                 <TextField label='Password' variant='outlined' type='password' required />
                 <div className={styles.helpLine}>
-                    <div className={styles.rememberMe}>
-                        <Switch />
-                        <p>Remember Me</p>
-                    </div>
+                    <FormControlLabel control={<Switch />} label="Remember Me" />
+                    <Link to='/resetpassword'>Forgot Password?</Link>
                 </div>
                 <Button variant="contained">Login</Button>
                 <p className={styles.noAccount}>Don't have an account? Create one <Link to='/register'>Here</Link></p>
