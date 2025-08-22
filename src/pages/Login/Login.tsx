@@ -15,8 +15,8 @@ function Login() {
             <form className={styles.card}>
                 <img className={styles.logo} src={logo} alt="Plannr Logo" />
                 <h1>Login</h1>
-                <TextField label='Email' variant='outlined' />
-                <TextField label='Password' variant='outlined' />
+                <TextField label='Email' variant='outlined' type='email' required />
+                <TextField label='Password' variant='outlined' type='password' required />
                 <div className={styles.helpLine}>
                     <div className={styles.rememberMe}>
                         <Switch />
