@@ -1,0 +1,18 @@
+.bucketArea{
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: calc(100vw - 4rem);
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2.3px);
+  -webkit-backdrop-filter: blur(2.3px);
+  border: 1px solid rgba(255, 255, 255, 1);
+  flex-shrink: 0;
+
+  @media (min-width: calc(19rem + 4rem)) {
+    width: 19rem;
+  }
+}
