@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import Header from '../../components/Header/Header';
+import Header from '../../components/Header/Header.tsx';
 import Bucket from "../../components/Bucket/Bucket.tsx";
+import CreateBucket from "../../components/CreateBucket/CreateBucket.tsx";
 import {useNavigate} from "react-router-dom";
 
 import styles from './Plannr.module.scss';
@@ -98,6 +99,7 @@ function Plannr() {
                         />
                     ))
                 )}
+                <CreateBucket />
             </main>
         </div>
     );

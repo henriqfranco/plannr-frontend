@@ -1,0 +1,18 @@
+@import '../../styles/Mixins.module.scss';
+
+.newBucketButton{
+  display: flex;
+  padding: 2rem;
+  height: 100%;
+  width: calc(100vw - 4rem);
+  align-items: center;
+  justify-content: center;
+  @include bucket-color;
+  transition: 0.3s;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  @media (min-width: calc(19rem + 4rem)) {
+    width: 19rem;
+  }
+}

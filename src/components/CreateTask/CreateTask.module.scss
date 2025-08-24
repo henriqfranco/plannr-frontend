@@ -1,0 +1,7 @@
+@import '../../styles/Mixins.module.scss';
+
+.createTaskBtn{
+  @include bucket-color;
+  transition: 0.3s;
+  cursor: pointer;
+}
