@@ -11,6 +11,8 @@
   -webkit-backdrop-filter: blur(2.3px);
   border: 1px solid rgba(255, 255, 255, 1);
   flex-shrink: 0;
+  gap: 1rem;
+  height: 100%;
 
   @media (min-width: calc(19rem + 4rem)) {
     width: 19rem;

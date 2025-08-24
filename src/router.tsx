@@ -7,9 +7,10 @@ import Plannr from "./pages/Plannr/Plannr";
 function AppRoutes() {
     return (
         <Routes>
+            <Route path="/" element={<Plannr />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/" element={<Plannr />} />
+            <Route path="/plannr" element={<Plannr />} />
         </Routes>
     )
 }
