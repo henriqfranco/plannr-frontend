@@ -71,20 +71,20 @@
         }
 
         .confirmButton {
-            background: #28a745;
+            background: linear-gradient(135deg, #007bff, #0056b3);
             color: white;
 
             &:hover:not(:disabled) {
-                background: #218838;
+                background: linear-gradient(135deg, #0061c8, #1462b5);
             }
         }
 
         .cancelButton {
-            background: #dc3545;
+            background: #747474;
             color: white;
 
             &:hover:not(:disabled) {
-                background: #c82333;
+                background: #8f8f8f;
             }
         }
     }
