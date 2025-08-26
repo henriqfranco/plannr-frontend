@@ -123,8 +123,10 @@ function Plannr() {
                     selectedWorkspace.buckets.map(bucket => (
                         <Bucket
                             key={bucket.id}
+                            id={bucket.id}
                             name={bucket.name}
                             tasks={bucket.tasks.map(task => ({ ...task, id: task.id.toString() }))}
+                            onTaskCreated={fetchWorkspaces}
                         />
                     ))
                 ) : (

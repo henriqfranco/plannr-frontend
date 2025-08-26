@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import styles from "./CreateBucket.module.scss";
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
@@ -21,27 +22,30 @@ function CreateBucket({ workspaceId, onBucketCreated }: CreateBucketProps) {
         try {
             const token = localStorage.getItem('authToken');
             
-            console.log(workspaceId)
-            const response = await fetch(`http://localhost:3000/buckets/create/${workspaceId}`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
+            const response = await axios.post(
+                `http://localhost:3000/buckets/create/${workspaceId}`,
+                {
                     bucketName: bucketName.trim()
-                })
-            });
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
 
-            if (response.ok) {
+            if (response.status === 200 || response.status === 201) {
                 setBucketName('');
                 setIsCreating(false);
                 onBucketCreated();
-            } else {
-                console.error('Failed to create bucket');
             }
         } catch (error) {
-            console.error('Error creating bucket:', error);
+            if (axios.isAxiosError(error)) {
+                console.error('Error creating bucket:', error.response?.data || error.message);
+            } else {
+                console.error('Error creating bucket:', error);
+            }
         } finally {
             setIsLoading(false);
         }
