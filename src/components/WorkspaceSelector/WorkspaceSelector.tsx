@@ -1,5 +1,6 @@
 import styles from './WorkspaceSelector.module.scss';
 import CreateWorkspace from '../CreateWorkspace/CreateWorkspace';
+import WorkspaceMenu from '../WorkspaceMenu/WorkspaceMenu';
 
 interface Task {
     id: number;
@@ -46,6 +47,10 @@ interface WorkspaceSelectorProps {
 }
 
 function WorkspaceSelector({ workspaces, selectedWorkspaceId, onWorkspaceSelect, onWorkspaceCreated }: WorkspaceSelectorProps) {
+    const handleWorkspaceDeleted = () => {
+        onWorkspaceCreated();
+    };
+
     return (
         <div className={styles.workspaceSelector}>
             <div className={styles.workspaceList}>
@@ -56,10 +61,20 @@ function WorkspaceSelector({ workspaces, selectedWorkspaceId, onWorkspaceSelect,
                             }`}
                         onClick={() => onWorkspaceSelect(workspace.id)}
                     >
-                        <span className={styles.workspaceName}>{workspace.name}</span>
-                        <span className={styles.bucketCount}>
-                            {workspace.buckets.length} bucket{workspace.buckets.length !== 1 ? 's' : ''}
-                        </span>
+                        <div className={styles.workspaceContent}>
+                            <span className={styles.workspaceName}>{workspace.name}</span>
+                            <span className={styles.bucketCount}>
+                                {workspace.buckets.length} bucket{workspace.buckets.length !== 1 ? 's' : ''}
+                            </span>
+                        </div>
+                        <div className={styles.workspaceActions}>
+                            <WorkspaceMenu
+                                workspaceId={workspace.id}
+                                workspaceName={workspace.name}
+                                onWorkspaceUpdated={onWorkspaceCreated}
+                                onWorkspaceDeleted={handleWorkspaceDeleted}
+                            />
+                        </div>
                     </button>
                 ))}
                 <CreateWorkspace onWorkspaceCreated={onWorkspaceCreated} />
