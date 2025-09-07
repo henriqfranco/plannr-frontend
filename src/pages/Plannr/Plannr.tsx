@@ -143,6 +143,7 @@ function Plannr() {
                 workspaces={workspaces}
                 selectedWorkspaceId={selectedWorkspaceId}
                 onWorkspaceSelect={handleWorkspaceSelect}
+                onWorkspaceCreated={fetchWorkspaces}
             />
         </div>
     );

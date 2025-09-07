@@ -1,0 +1,202 @@
+@import "../../styles/Mixins.module.scss";
+
+.createWorkspaceButton {
+  @include bucket-color;
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: #333 !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 12px !important;
+  padding: 0.75rem !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+  transition: all 0.3s ease !important;
+  min-width: auto !important;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.35) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    transform: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+  }
+}
+
+.dialog {
+  .dialogTitle {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #333;
+    padding: 1.5rem !important;
+  }
+
+  .dialogContent {
+    padding: 1.5rem !important;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    .workspaceInput {
+      margin-top: 0.5rem !important;
+
+      .MuiOutlinedInput-root {
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+
+        .MuiOutlinedInput-notchedOutline {
+          border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        &:hover .MuiOutlinedInput-notchedOutline {
+          border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        &.Mui-focused {
+          background: rgba(255, 255, 255, 0.9);
+          box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+
+          .MuiOutlinedInput-notchedOutline {
+            border-color: #007bff;
+            border-width: 2px;
+          }
+        }
+
+        .MuiInputBase-input {
+          font-weight: 500;
+        }
+      }
+
+      .MuiInputLabel-root {
+        font-weight: 500;
+
+        &.Mui-focused {
+          color: #007bff;
+        }
+      }
+
+      .MuiFormHelperText-root {
+        font-weight: 500;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  .dialogActions {
+    padding: 1rem 1.5rem 1.5rem !important;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    gap: 0.75rem;
+    justify-content: flex-end;
+
+    .MuiButton-root {
+      border-radius: 12px;
+      font-weight: 600;
+      text-transform: none;
+      padding: 0.75rem 1.5rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+
+      &[color="inherit"] {
+        background: rgba(255, 255, 255, 0.25);
+        color: #666;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.35);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      &[color="primary"] {
+        background: rgba(0, 123, 255, 0.9);
+        color: white;
+        border: 1px solid rgba(0, 123, 255, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+
+        &:hover {
+          background: rgba(0, 86, 179, 0.95);
+          transform: translateY(-1px);
+          box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        &:disabled {
+          background: rgba(108, 117, 125, 0.6);
+          opacity: 0.7;
+          transform: none;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+  }
+}
+
+:global(.MuiDialog-paper) {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  max-width: 450px !important;
+  overflow: hidden;
+}
+
+:global(.MuiBackdrop-root) {
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+:global(.MuiDialog-paper) {
+  animation: dialogSlideIn 0.3s ease-out;
+}
+
+@keyframes dialogSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  :global(.MuiDialog-paper) {
+    margin: 1rem !important;
+    max-width: calc(100vw - 2rem) !important;
+  }
+
+  .dialog {
+    .dialogContent,
+    .dialogActions,
+    .dialogTitle {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+  }
+}

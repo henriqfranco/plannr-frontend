@@ -1,4 +1,5 @@
 import styles from './WorkspaceSelector.module.scss';
+import CreateWorkspace from '../CreateWorkspace/CreateWorkspace';
 
 interface Task {
     id: number;
@@ -41,9 +42,10 @@ interface WorkspaceSelectorProps {
     workspaces: Workspace[];
     selectedWorkspaceId: number | null;
     onWorkspaceSelect: (workspaceId: number) => void;
+    onWorkspaceCreated: () => void;
 }
 
-function WorkspaceSelector({ workspaces, selectedWorkspaceId, onWorkspaceSelect }: WorkspaceSelectorProps) {
+function WorkspaceSelector({ workspaces, selectedWorkspaceId, onWorkspaceSelect, onWorkspaceCreated }: WorkspaceSelectorProps) {
     return (
         <div className={styles.workspaceSelector}>
             <div className={styles.workspaceList}>
@@ -60,6 +62,7 @@ function WorkspaceSelector({ workspaces, selectedWorkspaceId, onWorkspaceSelect 
                         </span>
                     </button>
                 ))}
+                <CreateWorkspace onWorkspaceCreated={onWorkspaceCreated} />
             </div>
         </div>
     );
