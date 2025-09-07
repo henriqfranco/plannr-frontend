@@ -11,11 +11,13 @@ interface TaskData {
 }
 
 interface BucketProps {
+    id: number;
     name: React.ReactNode;
     tasks: TaskData[];
+    onTaskCreated: () => void;
 }
 
-function Bucket({name, tasks}: BucketProps) {
+function Bucket({id, name, tasks, onTaskCreated}: BucketProps) {
     return (
         <div className={styles.bucketArea}>
             <div className={styles.titleLine}>
@@ -25,7 +27,7 @@ function Bucket({name, tasks}: BucketProps) {
                 </button>
             </div>
             <hr />
-            <CreateTask />
+            <CreateTask bucketId={id} onTaskCreated={onTaskCreated}/>
             {tasks.map(task => (
                 <Task
                     key={task.id}

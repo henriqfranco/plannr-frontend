@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Header from '../../components/Header/Header.tsx';
 import Bucket from "../../components/Bucket/Bucket.tsx";
 import CreateBucket from "../../components/CreateBucket/CreateBucket.tsx";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import styles from './Plannr.module.scss';
+import WorkspaceSelector from '../../components/WorkspaceSelector/WorkspaceSelector.tsx';
 
 interface Task {
     id: number;
@@ -52,37 +53,65 @@ interface ApiResponse {
 
 function Plannr() {
     const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
+    const [selectedWorkspaceId, setSelectedWorkspaceId] = useState<number | null>(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchWorkspaces = async () => {
-            try {
-                const token = localStorage.getItem('authToken');
+    const fetchWorkspaces = useCallback(async () => {
+        try {
+            const token = localStorage.getItem('authToken');
 
-                if (!token) {
-                    navigate('/login');
-                    return;
-                }
-
-                const response = await fetch('http://localhost:3000/workspaces', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                const data: ApiResponse = await response.json();
-                setWorkspaces(data.workspaces);
-            } catch (error) {
-                console.error('Error fetching workspaces:', error);
-            } finally {
-                setLoading(false);
+            if (!token) {
+                navigate('/login');
+                return;
             }
-        };
 
-        fetchWorkspaces().then();
-    }, [navigate]);
+            const response = await fetch('http://localhost:3000/workspaces', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.status === 401 || response.status === 403) {
+                localStorage.removeItem('authToken');
+                navigate('/login');
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data: ApiResponse = await response.json();
+            setWorkspaces(data.workspaces);
+
+            if (data.workspaces.length > 0 && !selectedWorkspaceId) {
+                setSelectedWorkspaceId(data.workspaces[0].id);
+            }
+        } catch (error) {
+            console.error('Error fetching workspaces:', error);
+            localStorage.removeItem('authToken');
+            navigate('/login');
+        } finally {
+            setLoading(false);
+        }
+    }, [navigate, selectedWorkspaceId]);
+
+    useEffect(() => {
+        fetchWorkspaces();
+    }, [fetchWorkspaces]);
+
+    const handleWorkspaceSelect = (workspaceId: number) => {
+        setSelectedWorkspaceId(workspaceId);
+    };
+
+    const handleBucketCreated = () => {
+        fetchWorkspaces();
+    };
+
+    const selectedWorkspace = workspaces.find(workspace => workspace.id === selectedWorkspaceId);
 
     if (loading) return <div>Loading...</div>;
 
@@ -90,17 +119,31 @@ function Plannr() {
         <div className={styles.mainPlannr}>
             <Header />
             <main className={styles.workspacesArea}>
-                {workspaces.map(workspace =>
-                    workspace.buckets.map(bucket => (
+                {selectedWorkspace ? (
+                    selectedWorkspace.buckets.map(bucket => (
                         <Bucket
                             key={bucket.id}
+                            id={bucket.id}
                             name={bucket.name}
                             tasks={bucket.tasks.map(task => ({ ...task, id: task.id.toString() }))}
+                            onTaskCreated={fetchWorkspaces}
                         />
                     ))
+                ) : (
+                    <div className={styles.noWorkspace}>
+                        {workspaces.length === 0 ? 'No workspaces found' : 'Select a workspace to view its buckets'}
+                    </div>
                 )}
-                <CreateBucket />
+                <CreateBucket
+                    workspaceId={selectedWorkspaceId}
+                    onBucketCreated={handleBucketCreated}
+                />
             </main>
+            <WorkspaceSelector
+                workspaces={workspaces}
+                selectedWorkspaceId={selectedWorkspaceId}
+                onWorkspaceSelect={handleWorkspaceSelect}
+            />
         </div>
     );
 }
